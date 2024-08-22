@@ -1,0 +1,52 @@
+/* Codigo desenvolvido para treinar os lacoes de repeticao
+  Emerson Nantes
+*/
+
+#include <stdio.h> // Inclui a biblioteca padrão de entrada e saída
+
+int main() // Função principal onde o programa inicia
+{
+    char continua; // Variável para verificar se o usuário quer continuar
+    int opc = 0;   // Variável para armazenar a opção escolhida pelo usuário
+    int i = 0;     // Variável contador utilizada em loops
+
+    do {
+        // Solicita ao usuário para digitar um número entre 1 e 3
+        printf("Digite um numero entre 1 a 3: ");
+        scanf("%d", &opc); // Lê a opção escolhida pelo usuário
+
+        // Verifica o valor de opc e executa o bloco correspondente
+        if (opc == 1) {
+            // Bloco para opc == 1: usa um laço for
+            for (i; i < 10; i++) {
+                printf("a variavel i vale :%d\n", i); // Imprime o valor atual de i
+            }
+        } else if (opc == 2) {
+            // Bloco para opc == 2: usa um laço while
+            printf("bloco opc 2 - Laco While\n");
+            i = 0; // Reinicializa i para garantir que o laço funcione corretamente
+            while (i < 3) {
+                i++; // Incrementa i
+                printf("O laco while é :%d\n", i); // Imprime o valor de i
+            }
+        } else if (opc == 3) {
+            // Bloco para opc == 3: usa um laço do-while
+            printf("Bloco 3 - doWhile\n");
+            i = 20; // Define i para 20
+            do {
+                printf("Laco doWhile :%d\n", i); // Imprime o valor de i
+                i--; // Decrementa i
+            } while (i >= 0); // Continua enquanto i for maior ou igual a 0
+        } else {
+            // Bloco para opções inválidas
+            printf("Valor invalido digite entre 1 a 3!\n");
+        }
+
+        // Pergunta ao usuário se deseja continuar
+        printf("Deseja continuar (s/n): ");
+        scanf(" %c", &continua); // Lê a resposta do usuário. Note o espaço antes de %c para ignorar caracteres de nova linha
+
+    } while (continua == 's' || continua == 'S'); // Continua o loop se a resposta for 's' ou 'S'
+
+    return 0; // Finaliza o programa com sucesso
+}
