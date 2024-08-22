@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+// Declaração das funções
+int somar(int a, int b);
+float calcularMedia(int soma, int quantidade);
+void exibirResultado(int soma, float media);
+
+int main() {
+    int num1, num2;
+    
+    // Solicita entrada do usuário
+    printf("Digite dois números inteiros:\n");
+    scanf("%d %d", &num1, &num2);
+
+    // Chama a função para somar os números
+    int resultadoSoma = somar(num1, num2);
+
+    // Calcula a média dos números
+    float resultadoMedia = calcularMedia(resultadoSoma, 2);
+
+    // Exibe os resultados
+    exibirResultado(resultadoSoma, resultadoMedia);
+
+    return 0;
+}
+
+// Definição da função somar
+int somar(int a, int b) {
+    return a + b;
+}
+
+// Definição da função calcularMedia
+float calcularMedia(int soma, int quantidade) {
+    return (float)soma / quantidade;
+}
+
+// Definição da função exibirResultado
+void exibirResultado(int soma, float media) {
+    printf("Soma: %d\n", soma);
+    printf("Média: %.2f\n", media);
+}
