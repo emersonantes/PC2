@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+float valormedia(float vlr1, float vlr2, float *media)
+{
+    printf("Digite o primeiro valor: ");
+    scanf("%f", &vlr1);
+    printf("Digite o segundo valor: ");
+    scanf("%f", &vlr2);
+    *media = (vlr1 + vlr2) / 2; // Calcula a média e armazena no ponteiro media
+}
+
+int main()
+{
+    float vlr1, vlr2, media;
+    valormedia(vlr1, vlr2, &media); // Chama a função e passa os valores e o endereço da variável media
+
+    printf("A média dos valores é: %f\n", media);
+
+    return 0;
+}
