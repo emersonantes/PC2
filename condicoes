@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_USUARIOS 100
+#define TAMANHO_NOME 50
+#define TAMANHO_EMAIL 50
+
+// Estrutura para armazenar informações de um usuário
+struct Usuario {
+    char nome[TAMANHO_NOME];
+    int idade;
+    char email[TAMANHO_EMAIL];
+};
+
+// Função para exibir informações de um usuário
+void exibirUsuario(struct Usuario usuario) {
+    printf("Nome: %s\n", usuario.nome);
+    printf("Idade: %d\n", usuario.idade);
+    printf("Email: %s\n", usuario.email);
+}
+
+// Função principal
+int main() {
+    struct Usuario usuarios[MAX_USUARIOS];
+    int quantidadeUsuarios = 0;
+    int opcao;
+    char continuar;
+
+    do {
+        printf("\nMenu de Cadastro de Usuários\n");
+        printf("1. Cadastrar novo usuário\n");
+        printf("2. Listar todos os usuários\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        // Verifica a opção escolhida pelo usuário
+        switch(opcao) {
+            case 1:
+                // Cadastrar um novo usuário
+                if (quantidadeUsuarios < MAX_USUARIOS) {
+                    printf("Digite o nome do usuário: ");
+                    scanf(" %[^\n]", usuarios[quantidadeUsuarios].nome); // Lê a linha inteira para o nome
+
+                    printf("Digite a idade do usuário: ");
+                    scanf("%d", &usuarios[quantidadeUsuarios].idade);
+
+                    printf("Digite o e-mail do usuário: ");
+                    scanf(" %[^\n]", usuarios[quantidadeUsuarios].email); // Lê a linha inteira para o e-mail
+
+                    quantidadeUsuarios++;
+                    printf("Usuário cadastrado com sucesso!\n");
+                } else {
+                    printf("Limite de usuários atingido!\n");
+                }
+                break;
+
+            case 2:
+                // Listar todos os usuários cadastrados
+                if (quantidadeUsuarios > 0) {
+                    printf("\nLista de Usuários Cadastrados:\n");
+                    for (int i = 0; i < quantidadeUsuarios; i++) {
+                        printf("\nUsuário %d:\n", i + 1);
+                        exibirUsuario(usuarios[i]);
+                    }
+                } else {
+                    printf("Nenhum usuário cadastrado.\n");
+                }
+                break;
+
+            case 3:
+                // Sair do programa
+                printf("Saindo do programa...\n");
+                break;
+
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+                break;
+        }
+
+        // Pergunta se o usuário deseja continuar
+        if (opcao != 3) {
+            printf("\nDeseja continuar? (s/n): ");
+            scanf(" %c", &continuar);
+        } else {
+            continuar = 'n';
+        }
+
+    } while (continuar == 's' || continuar == 'S'); // Continua enquanto o usuário responder 's' ou 'S'
+
+    return 0; // Finaliza o programa com sucesso
+}
