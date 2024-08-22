@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+// Função para exibir a tabela verdade
+void exibirTabelaVerdade() {
+    int A, B;
+    // Cabeçalho da tabela
+    printf(" A | B | A AND B | A OR B | NOT A | NOT B\n");
+    printf("-------------------------------------------\n");
+
+    // Gera todas as combinações de A e B (0 e 1)
+    for (A = 0; A <= 1; A++) {
+        for (B = 0; B <= 1; B++) {
+            // Calcula resultados das operações lógicas
+            int andAB = A && B; // A AND B
+            int orAB = A || B;  // A OR B
+            int notA = !A;      // NOT A
+            int notB = !B;      // NOT B
+
+            // Exibe a linha correspondente da tabela
+            printf(" %d | %d |    %d   |   %d   |   %d   |   %d\n", A, B, andAB, orAB, notA, notB);
+        }
+    }
+}
+
+int main() {
+    // Exibe a tabela verdade
+    exibirTabelaVerdade();
+
+    return 0; // Finaliza o programa com sucesso
+}
+
