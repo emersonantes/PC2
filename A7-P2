@@ -1,0 +1,140 @@
+#include <stdio.h>  // Inclui a biblioteca padrão de entrada e saída para funções como printf e scanf
+#include <stdlib.h> // Inclui a biblioteca padrão de funções utilitárias, embora não seja estritamente necessária aqui
+
+#define N_PROF 4      // Define o número total de professores como 4
+#define VLR_HORA 60.50 // Define o valor por hora de aula como 60,50
+
+// Enumeração para representar o sexo dos professores
+enum Sexo
+{
+    MASCULINO, // Representa o sexo masculino
+    FEMININO   // Representa o sexo feminino
+};
+
+// Estrutura para armazenar dados de um professor
+struct Professor 
+{
+    int codigo;        // Código único do professor
+    enum Sexo sexo;    // Sexo do professor (MASCULINO ou FEMININO)
+    int horasAula;     // Número de horas de aula ministradas pelo professor
+};
+
+// Função para calcular o desconto baseado no sexo e na quantidade de horas de aula
+float calcularDesconto(enum Sexo sexo, int horasAula) 
+{
+    float desconto; // Percentual de desconto a ser aplicado
+
+    // Verifica o sexo do professor
+    if (sexo == MASCULINO) 
+    {
+        // Se o professor for do sexo masculino
+        if (horasAula <= 70) 
+        {
+            desconto = 0.10; // 10% de desconto se horas de aula são 70 ou menos
+        } 
+        else 
+        {
+            desconto = 0.08; // 8% de desconto se horas de aula são mais de 70
+        }
+    } 
+    else if (sexo == FEMININO) 
+    {
+        // Se a professora for do sexo feminino
+        if (horasAula <= 70) 
+        {
+            desconto = 0.07; // 7% de desconto se horas de aula são 70 ou menos
+        } 
+        else 
+        {
+            desconto = 0.05; // 5% de desconto se horas de aula são mais de 70
+        }
+    } 
+    else 
+    {
+        desconto = 0.0; // Caso inválido, sem desconto
+    }
+
+    return desconto; // Retorna o percentual de desconto calculado
+}
+
+// Função para calcular o salário bruto com base nas horas de aula
+float calcularSalarioBruto(int horasAula) 
+{
+    return horasAula * VLR_HORA; // Calcula o salário bruto multiplicando horas de aula pelo valor da hora
+}
+
+int main() 
+{
+    struct Professor professores[N_PROF]; // Array para armazenar dados dos professores
+    int codigosCadastrados[N_PROF] = {0}; // Array para verificar códigos únicos, não utilizado no código fornecido
+
+    printf("Digite os dados dos professores:\n"); // Solicita ao usuário que insira os dados dos professores
+
+    // Loop para cadastrar os dados dos professores
+    for (int i = 0; i < N_PROF; i++) 
+    {
+        int codigo;
+        
+        do 
+        {
+            printf("Professor %d:\n", i + 1); // Solicita o número do professor
+            printf("Código: ");
+            scanf("%d", &codigo); // Lê o código do professor
+
+            int codigoRepetido = 0; // Flag para verificar se o código é repetido
+            for (int j = 0; j < i; j++) 
+            {
+                // Verifica se o código já foi cadastrado
+                if (codigo == professores[j].codigo) 
+                {
+                    codigoRepetido = 1; // Marca o código como repetido
+                    printf("Código já cadastrado. Insira um código único.\n");
+                    break; // Sai do loop de verificação de código
+                }
+            }
+
+            // Se o código não for repetido, armazena no array e sai do loop
+            if (!codigoRepetido) 
+            {
+                professores[i].codigo = codigo;
+                break;
+            }
+        } 
+        while (1); // Continua pedindo o código até que um válido seja inserido
+
+        printf("Sexo (M/F): ");
+        char sexo;
+        scanf(" %c", &sexo); // Lê o caractere para o sexo. O espaço antes de %c é para ignorar qualquer caractere de nova linha residual
+
+        // Define o sexo com base na entrada do usuário
+        if (sexo == 'M' || sexo == 'm') 
+        {
+            professores[i].sexo = MASCULINO;
+        } 
+        else if (sexo == 'F' || sexo == 'f') 
+        {
+            professores[i].sexo = FEMININO;
+        }
+
+        // Solicita o número de horas-aula ministradas
+        printf("Horas-aula ministradas: ");
+        scanf("%d", &professores[i].horasAula); // Lê o número de horas de aula
+    }
+
+    // Exibe a listagem dos professores
+    printf("\nListagem de Professores:\n");
+    printf("Código | Salário Bruto | Desconto | Salário Líquido\n");
+    
+    // Loop para calcular e exibir as informações de cada professor
+    for (int i = 0; i < N_PROF; i++) 
+    {
+        float salarioBruto = calcularSalarioBruto(professores[i].horasAula); // Calcula o salário bruto
+        float desconto = calcularDesconto(professores[i].sexo, professores[i].horasAula); // Calcula o desconto
+        float salarioLiquido = salarioBruto - (salarioBruto * desconto); // Calcula o salário líquido após desconto
+        
+        // Imprime as informações do professor
+        printf("%6d | %13.2f | %8.2f%% | %15.2f\n", professores[i].codigo, salarioBruto, desconto * 100, salarioLiquido);
+    }
+
+    return 0; // Finaliza o programa com sucesso
+}
