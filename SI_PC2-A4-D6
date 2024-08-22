@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    int entradas = 0;
+    int saidas = 0;
+    int n = 4; // cidades
+    int L[4][4] = 
+    {
+        {1, 1, 1, 0},
+        {0, 1, 1, 0},
+        {1, 0, 1, 1},
+        {0, 0, 1, 1}
+        
+    }; 
+
+    for (int i = 0; i < n; i++) 
+    {
+    int entradas = 0;
+    int saidas = 0;
+        for (int j = 0; j < n; j++) {
+            saidas += L[i][j];
+            entradas += L[j][i];
+        }
+        printf("Posição %d - %d entrada(s) e %d saída(s)\n", i, entradas, saidas);
+    }
+
+}
+
