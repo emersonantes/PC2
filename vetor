@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+#define MAX_TAMANHO 100 // Define o tamanho máximo do vetor
+
+// Função para ler números no vetor
+void lerNumeros(int vetor[], int tamanho) {
+    printf("Digite %d números:\n", tamanho);
+    for (int i = 0; i < tamanho; i++) {
+        printf("Número %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+}
+
+// Função para exibir números do vetor
+void exibirNumeros(int vetor[], int tamanho) {
+    printf("Números digitados:\n");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+}
+
+// Função para calcular a soma dos números no vetor
+int calcularSoma(int vetor[], int tamanho) {
+    int soma = 0;
+    for (int i = 0; i < tamanho; i++) {
+        soma += vetor[i];
+    }
+    return soma;
+}
+
+// Função para calcular a média dos números no vetor
+float calcularMedia(int soma, int tamanho) {
+    if (tamanho > 0) {
+        return (float)soma / tamanho;
+    }
+    return 0.0; // Retorna 0 se o tamanho for 0 para evitar divisão por zero
+}
+
+int main() {
+    int vetor[MAX_TAMANHO];
+    int tamanho;
+    
+    printf("Digite o número de elementos (até %d): ", MAX_TAMANHO);
+    scanf("%d", &tamanho);
+
+    // Verifica se o tamanho está dentro do limite permitido
+    if (tamanho <= 0 || tamanho > MAX_TAMANHO) {
+        printf("Número de elementos inválido. O número deve ser entre 1 e %d.\n", MAX_TAMANHO);
+        return 1;
+    }
+
+    // Lê os números do usuário
+    lerNumeros(vetor, tamanho);
+
+    // Exibe os números inseridos
+    exibirNumeros(vetor, tamanho);
+
+    // Calcula a soma dos números
+    int soma = calcularSoma(vetor, tamanho);
+    printf("Soma dos números: %d\n", soma);
+
+    // Calcula e exibe a média dos números
+    float media = calcularMedia(soma, tamanho);
+    printf("Média dos números: %.2f\n", media);
+
+    return 0; // Finaliza o programa com sucesso
+}
